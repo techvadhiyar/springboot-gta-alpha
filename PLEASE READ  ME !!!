@@ -1,0 +1,30 @@
+How to make Travis CI deploy a JAR file to AWS Elastic Bean Stalk
+==================================================================
+https://stackoverflow.com/questions/40519788/travis-deploys-a-zip-instead-of-a-jar
+(see the deploy tag) 
+
+travis.yml sample
+-----------------
+language: java
+jdk:
+- oraclejdk8
+deploy:
+    provider: elasticbeanstalk
+    skip_cleanup: true ------------ if this is not set then travis will zip the entire project folder and ship it to S3
+    app: OptionsTradeAnalysis
+    env: ota-api-env
+    zip_file: 'build/libs/OptionsAnalysis-1.0.jar'
+    bucket_name: elasticbeanstalk-us-west-2-302145366589
+    region: us-west-2
+    access_key_id:
+      secure: key
+    secret_access_key:
+      secure: key
+    on:
+      repo: melchoir55/OptionsAnalysis
+      branch: master
+      
+ 
+
+https://rants.broonix.ca/continuous-deployment-with-spring-boot-and-travis
+(how to deploy a WAR file instead)

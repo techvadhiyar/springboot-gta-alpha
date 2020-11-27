@@ -1,0 +1,25 @@
+sudo: required
+
+language: java
+jdk:
+ - openjdk8
+ 
+before_install:
+  - chmod +x mvnw
+  
+script: ./mvnw clean install 
+
+ 
+deploy:
+  provider: elasticbeanstalk
+  skip_cleanup: true
+  region: us-east-2
+  app: springboot-gta-alpha
+  env: SpringbootGtaAlpha-env
+  zip_file: 'build/libs/springboot-gta-alpha-1.0.jar'
+  bucket_name: 
+  bucket_path: springboot-gta-alpha
+  on: 
+    branch: main
+  access_key_id: $AWS_ID
+  secret_access_key: $AWS_PASSWORD

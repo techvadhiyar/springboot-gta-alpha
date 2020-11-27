@@ -25,6 +25,20 @@ deploy:
       branch: master
       
  
-
 https://rants.broonix.ca/continuous-deployment-with-spring-boot-and-travis
 (how to deploy a WAR file instead)
+
+
+---------------------------------------------
+
+AWS Elastic Bean Stalk Related Steps
+====================================
+
+After your create your bean stalk environment, make sure to generate the SSH keys to access the EC2 instance via Putty SSH. 
+Remember to set these keys under - Environment - Configuration - Security
+Also set the Health Check to enhanced.
+Once everything is working, terminate the environment..otherwise AWS will bill you.
+Monitor the nginx configuration under:
+	sudo cat /etc/nginx/sites-enabled/default - you will see the configuration file here...
+- For this make sure that your server is listening on port 80
+- No matter what I do, my Environment is still severe...and not green...

@@ -42,3 +42,12 @@ Monitor the nginx configuration under:
 	sudo cat /etc/nginx/sites-enabled/default - you will see the configuration file here...
 - For this make sure that your server is listening on port 80
 - No matter what I do, my Environment is still severe...and not green...
+
+---------------------------------------------
+
+Travis CI 
+=========
+Make sure you set up the AWS_ID and AWS_PASSWORD as Travis Project settings for the handshake with AWS Elastic Bean Stalk 
+	- this is part of the AWS IAM User setup for travis.
+	- Use the ACCESS KEY ID and SECRET ACCESS KEY values.
+

@@ -1,7 +1,11 @@
 How to make Travis CI deploy a JAR file to AWS Elastic Bean Stalk
 ==================================================================
 https://stackoverflow.com/questions/40519788/travis-deploys-a-zip-instead-of-a-jar
-(see the deploy tag) 
+(see the deploy tag - however the value under zip files is for a gradle build where the jar is stored under /build/libs/) 
+
+https://stackoverflow.com/questions/49482663/travis-deploy-library-in-bintray-build-folder-does-not-exist
+https://docs.travis-ci.com/user/deployment/bintray
+
 
 travis.yml sample
 -----------------
@@ -10,10 +14,10 @@ jdk:
 - oraclejdk8
 deploy:
     provider: elasticbeanstalk
-    skip_cleanup: true ------------ if this is not set then travis will zip the entire project folder and ship it to S3
+    skip_cleanup: true ------------ if this is not set then travis will zip the entire project folder and ship it to S3 and also delete the jar from the build step
     app: OptionsTradeAnalysis
     env: ota-api-env
-    zip_file: 'build/libs/OptionsAnalysis-1.0.jar'
+    zip_file: 'build/libs/OptionsAnalysis-1.0.jar' ------------ this is how you specify the location of the jar file.
     bucket_name: elasticbeanstalk-us-west-2-302145366589
     region: us-west-2
     access_key_id:
@@ -50,4 +54,15 @@ Travis CI
 Make sure you set up the AWS_ID and AWS_PASSWORD as Travis Project settings for the handshake with AWS Elastic Bean Stalk 
 	- this is part of the AWS IAM User setup for travis.
 	- Use the ACCESS KEY ID and SECRET ACCESS KEY values.
+	
+	
+	
+Troubleshooting:
+Typical NGINX error.
+-------------------------------------
+/var/log/nginx/error.log
+-------------------------------------
+2020/11/28 02:09:53 [error] 3320#0: *2909 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.1.184, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:5000/", host: "172.31.26.138"
 
+
+Quick fix is to make our server listen on 5000 - so server.port = 5000 - let's try that.

@@ -16,7 +16,7 @@ deploy:
   region: us-east-2
   app: springboot-gta-alpha
   env: SpringbootGtaAlpha-env
-  zip_file: 'build/libs/springboot-gta-alpha-1.0.jar'
+  zip_file: 'build/libs/springboot-gta-alpha-0.0.1-SNAPSHOT.jar'
   bucket_name: elasticbeanstalk-us-east-2-693831461729
   bucket_path: springboot-gta-alpha
   on: 
